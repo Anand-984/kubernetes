@@ -1,0 +1,106 @@
+1.aws account
+2.domain name
+3.s3 bucket and route 53 integrate
+4.one management server which holds all scripts
+5.download kops binary & kubectl binary
+6.run ssh-keygen   to make a communication between the master and worker nodes
+7.aws cli and aws access key and the secret key
+
+bellow all commands are run in the management server
+ 
+sudo su -
+=====to install the kops===https://github.com/kubernetes/kops/releases====== browse the link and goto-> assets->there you find "kops-linux-amd64" right cick and copy the link 
+
+wget https://github.com/kubernetes/kops/releases/download/v1.22.2/kops-linux-amd64
+ll
+chmod 700 kops-linux-amd64    ==to give all executable permissions
+mv kops-linux-amd64 kops    ==to rename
+mv kops /usr/local/bin   ==to attach all kops commands to the /usr/local/bin directory
+kops version
+
+===to install kubectl===directly from k8s site===https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/===
+1.aws account
+2.domain name
+3.s3 bucket and route 53 integrate
+4.one management server which holds all scripts
+5.download kops binary & kubectl binary
+6.run ssh-keygen   to make a communication between the master and worker nodes
+7.aws cli and aws access key and the secret key
+
+bellow all commands are run in the management server
+ 
+sudo su -
+=====to install the kops===https://github.com/kubernetes/kops/releases====== browse the link and goto-> assets->there you find "kops-linux-amd64" right cick and copy the link 
+
+wget https://github.com/kubernetes/kops/releases/download/v1.22.2/kops-linux-amd64
+ll
+chmod 700 kops-linux-amd64    ==to give all executable permissions
+mv kops-linux-amd64 kops    ==to rename
+mv kops /usr/local/bin   ==to attach all kops commands to the /usr/local/bin directory
+kops version
+
+===to install kubectl===directly from k8s site===https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/===
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod 700 kubectl
+mv kubectl /usr/local/bin
+kubectl version
+
+ssh-keygen    ===to establish the communication between the master and nodes 
+
+===install aws cli to deploy master and the worker nodes on the aws cloud==https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version   
+
+
+===to create cluster ====
+kops create cluster --name=simplesingle.xyz \ --state=s3://simplesingle.xyz \ --zone=ap-south-1a \ --node-count=2 \ --node-size=t2.micro \ --node-volume-size 10 \ --master-size=t3.small \ --master-volume-size 20 \ --dns-zone=simplesingle.xyz \
+
+
+kops create cluster \
+--name simplesingle.xyz \
+--state s3://simplesingle.xyz \
+--zones ap-south-1a \
+--node-count 2 \
+--node-size t2.micro \
+--node-volume-size 10 \
+--master-size t3.small \
+--master-volume-size 20 \
+--dns-zone simplesingle.xyz \
+--yes
+
+root@ip-172-31-4-81:~# kops delete cluster --name simplesingle.xyz --state s3://simplesingle.xyz --yes
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod 700 kubectl
+mv kubectl /usr/local/bin
+kubectl version
+
+ssh-keygen    ===to establish the communication between the master and nodes 
+
+===install aws cli to deploy master and the worker nodes on the aws cloud==https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version   
+
+
+===to create cluster ====
+kops create cluster --name=simplesingle.xyz \ --state=s3://simplesingle.xyz \ --zone=ap-south-1a \ --node-count=2 \ --node-size=t2.micro \ --node-volume-size 10 \ --master-size=t3.small \ --master-volume-size 20 \ --dns-zone=simplesingle.xyz \
+
+
+kops create cluster \
+--name simplesingle.xyz \
+--state s3://simplesingle.xyz \
+--zones ap-south-1a \
+--node-count 2 \
+--node-size t2.micro \
+--node-volume-size 10 \
+--master-size t3.small \
+--master-volume-size 20 \
+--dns-zone simplesingle.xyz \
+--yes
+
+root@ip-172-31-4-81:~# kops delete cluster --name simplesingle.xyz --state s3://simplesingle.xyz --yes
